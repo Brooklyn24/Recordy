@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Recordy</string>
+    <string name="title_activity_add_new_record_fragment">AddNewRecordFragment</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_item_clients">Clients</string>
+    <string name="menu_item_procedures">Procedures</string>
+    <string name="menu_item_records">Records</string>
+    <string name="view_navigation_open">Open</string>
+    <string name="view_navigation_close">close</string>
+    <string name="name_hint">Name</string>
+    <string name="price_hint">Price</string>
+    <string name="duration_hint">Duration</string>
+    <string name="menu_item_calendar">Calendar</string>
+    <string name="phone_hint">Phone</string>
+    <string name="your_records_will_be_here">Your records will be here</string>
+    <string name="there_will_be_list_of_procedures">There will be list of procedures</string>
+</resources>
