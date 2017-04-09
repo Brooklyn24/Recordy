@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recordy</string>
+    <string name="hello_blank_fragment">[tkk</string>
+    <string name="duration_hint">Длительность</string>
+    <string name="menu_item_calendar">Календарь</string>
+    <string name="menu_item_clients">Клиенты</string>
+    <string name="menu_item_procedures">Услуги</string>
+    <string name="menu_item_records">Записи</string>
+    <string name="name_hint">Название</string>
+    <string name="phone_hint">Телефон</string>
+    <string name="price_hint">Цена</string>
+    <string name="there_will_be_list_of_procedures">Здесь будет список услуг</string>
+    <string name="your_records_will_be_here">Здесь будет список записей</string>
+    <string name="currency">рублей</string>
+    <string-array name="minutes_labels">
+        <item>10 минут</item>
+        <item>20 минут</item>
+        <item>30 минут</item>
+        <item>40 минут</item>
+        <item>50 минут</item>
+        <item>1 час</item>
+        <item>1 час 10 минут</item>
+        <item>1 час 20 минут</item>
+        <item>1 час 30 минут</item>
+        <item>2 часа</item>
+        <item>2 часа 30 минут</item>
+        <item>3 часа</item>
+    </string-array>
+    <string name="settings">Настройки</string>
+    <string name="record_added">Запись добавлена</string>
+</resources>

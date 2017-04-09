@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.bigapps.brooklyn.recordy.dataBase.models.Client;
 import com.bigapps.brooklyn.recordy.dataBase.models.Procedure;
+import com.bigapps.brooklyn.recordy.dataBase.models.ProceduresRecordList;
 import com.bigapps.brooklyn.recordy.dataBase.models.Record;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -21,12 +22,13 @@ import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String DATABASE_NAME = "RecordyDataBase.db";
-    private static final int DATABASE_VERSION = 20;
+    private static final String DATABASE_NAME = "RecordyDataBase1.db";
+    private static final int DATABASE_VERSION = 27;
 
     private Dao<Record, Integer> mRecordDao = null;
     private Dao<Procedure, Integer> mProcedureDao = null;
     private Dao<Client, Integer> mClientDao = null;
+    private Dao<ProceduresRecordList, Integer> mProceduresRecordListDao = null;
 
     private static DatabaseHelper helper = null;
 
@@ -47,6 +49,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Record.class);
             TableUtils.createTable(connectionSource, Procedure.class);
             TableUtils.createTable(connectionSource, Client.class);
+            TableUtils.createTable(connectionSource, ProceduresRecordList.class);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -59,6 +62,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Record.class, true);
             TableUtils.dropTable(connectionSource, Procedure.class, true);
             TableUtils.dropTable(connectionSource, Client.class, true);
+            TableUtils.dropTable(connectionSource, ProceduresRecordList.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -70,6 +74,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             mRecordDao = getDao(Record.class);
         }
         return mRecordDao;
+    }
+
+    public Dao<ProceduresRecordList, Integer> getProceduresRecordListDao() throws SQLException {
+        if (mProceduresRecordListDao == null) {
+            mProceduresRecordListDao = getDao(ProceduresRecordList.class);
+        }
+        return mProceduresRecordListDao;
     }
 
     public Dao<Procedure, Integer> getProcedureDao() throws SQLException {

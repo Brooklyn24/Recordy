@@ -14,10 +14,9 @@ public class Client {
 
     public static final String TABLE_NAME_CLIENT = "clients";
 
-    @DatabaseField(generatedId = true) private int mId;
     @DatabaseField private String name;
     @DatabaseField private String phone;
-    @DatabaseField private String uri;
+    @DatabaseField (id = true) private String uri;
 
     public Client() {
     }

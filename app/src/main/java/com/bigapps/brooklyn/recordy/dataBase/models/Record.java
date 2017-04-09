@@ -3,11 +3,15 @@ package com.bigapps.brooklyn.recordy.dataBase.models;
 import android.util.Log;
 
 import com.alamkanak.weekview.WeekViewEvent;
+import com.bigapps.brooklyn.recordy.dataBase.DatabaseHelper;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 @DatabaseTable(tableName = Record.TABLE_NAME_RECORDS)
@@ -18,11 +22,12 @@ public class Record {
     @DatabaseField(generatedId = true) private long mId;
     @DatabaseField(foreign = true, foreignAutoRefresh = true) private Client mClientId;
     @DatabaseField() private long mDate;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true) private Procedure mProcedureId;
+    @ForeignCollectionField(eager = true) private Collection<ProceduresRecordList> proceduresList;
     @DatabaseField() private int mDuration;
 
 
     public Record() {
+        proceduresList = new ArrayList<>();
     }
 
     public int getmDuration() {
@@ -53,12 +58,25 @@ public class Record {
         this.mDate = mDate;
     }
 
-    public Procedure getmProcedureId() {
-        return mProcedureId;
+    public void addProcedure(Procedure procedure){
+        ProceduresRecordList value = new ProceduresRecordList();
+        value.setmProcedureId(procedure.getmId());
+        value.setRecord(this);
+        try {
+            DatabaseHelper.getHelper(null).getProceduresRecordListDao().create(value);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        proceduresList.add(value);
     }
 
-    public void setmProcedureId(Procedure mProcedureId) {
-        this.mProcedureId = mProcedureId;
+    public void removProcedure(Procedure value){
+        try {
+            DatabaseHelper.getHelper(null).getProcedureDao().delete(value);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        proceduresList.remove(value);
     }
 
     public WeekViewEvent toEvent(int month) {

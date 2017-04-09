@@ -2,6 +2,8 @@ package com.bigapps.brooklyn.recordy.fragments.show;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bigapps.brooklyn.recordy.R;
+import com.bigapps.brooklyn.recordy.adapters.ClientsAdapter;
 import com.bigapps.brooklyn.recordy.adapters.ProceduresAdapter;
-import com.bigapps.brooklyn.recordy.adapters.RecordsAdapter;
 import com.bigapps.brooklyn.recordy.dataBase.DatabaseHelper;
 import com.bigapps.brooklyn.recordy.dataBase.models.Procedure;
 import com.bigapps.brooklyn.recordy.fragments.add.AddProcedureFragment;
+import com.bigapps.brooklyn.recordy.interfaces.ShowSnackbar;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,14 +27,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShowProceduresFragment extends Fragment {
+public class ShowProceduresFragment extends Fragment implements ShowSnackbar {
 
     private DatabaseHelper mDatabaseHelper;
-    private List<Procedure> mProceduresList;
+    private List<Procedure> mProcedureList;
     private ProceduresAdapter mProceduresAdapter;
+    private String mMessage;
+    private boolean mIsMessage;
 
     @BindView(R.id.recycleView) RecyclerView recyclerView;
-    @BindView(R.id.emptyRvTxt) TextView emptyRtTxt;
+    @BindView(R.id.proceduresEmptyTxt) TextView emptyRtTxt;
+    @BindView(R.id.fabAddNewProcedure) FloatingActionButton fab;
+
 
     @OnClick(R.id.fabAddNewProcedure)
     public void fabOnClick(){
@@ -55,28 +62,28 @@ public class ShowProceduresFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            mProceduresList = getHelper().getProcedureDao().queryForAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        mProceduresAdapter = new ProceduresAdapter(mProceduresList);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().setTitle(getString(R.string.procedures));
         try {
-            mProceduresList = getHelper().getProcedureDao().queryForAll();
+            mProcedureList = getHelper().getProcedureDao().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        mProceduresAdapter = new ProceduresAdapter(mProceduresList);
+        mProceduresAdapter = new ProceduresAdapter(mProcedureList);
         recyclerView.setAdapter(mProceduresAdapter);
         if (mProceduresAdapter.getItemCount() <= 0) {
             emptyRtTxt.setVisibility(View.VISIBLE);
         } else {
             emptyRtTxt.setVisibility(View.GONE);
+        }
+        if (mIsMessage) {
+            Snackbar.make(getView().findViewById(R.id.coordinatorLayout), mMessage, Snackbar.LENGTH_SHORT).show();
+            mIsMessage = false;
         }
     }
 
@@ -88,6 +95,16 @@ public class ShowProceduresFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(mProceduresAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 && fab.isShown())
+                    fab.hide();
+                else if (dy < 0 && !fab.isShown()){
+                    fab.show();
+                }
+            }
+        });
         return view;
     }
 
@@ -96,6 +113,12 @@ public class ShowProceduresFragment extends Fragment {
             mDatabaseHelper = DatabaseHelper.getHelper(getContext());
         }
         return mDatabaseHelper;
+    }
+
+    @Override
+    public void showSnackbar(String message) {
+        mMessage = message;
+        mIsMessage = true;
     }
 
 }

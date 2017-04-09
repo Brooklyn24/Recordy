@@ -28,30 +28,14 @@
         android:hint="@string/price_hint"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/procedureNameEt"/>
-
-    <EditText
-        android:id="@+id/procedureDurationEt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/duration_hint"
-        android:inputType="number"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/procedurePriceEt"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/procedureNameEt"
+        app:layout_constraintRight_toLeftOf="@+id/textView2"
+        android:layout_marginRight="8dp"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addProcedureFab"
@@ -65,5 +49,38 @@
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_accept"
         android:layout_marginEnd="16dp"/>
+
+    <Spinner
+        android:id="@+id/durationSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="14dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/procedurePriceEt"
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/duration_hint"
+        app:layout_constraintTop_toTopOf="@+id/durationSpinner"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/durationSpinner"
+        android:layout_marginBottom="0dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currency"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/procedurePriceEt"/>
 
 </android.support.constraint.ConstraintLayout>

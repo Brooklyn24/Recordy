@@ -2,20 +2,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first_fragment"
-            android:icon="@drawable/ic_accept"
+            android:id="@+id/clients_fragment"
+            android:icon="@drawable/ic_clients"
             android:title="@string/menu_item_clients" />
         <item
-            android:id="@+id/nav_second_fragment"
-            android:icon="@drawable/ic_accept"
+            android:id="@+id/procedures_fragment"
+            android:icon="@drawable/ic_procedures"
             android:title="@string/menu_item_procedures" />
         <item
-            android:id="@+id/nav_third_fragment"
-            android:icon="@drawable/ic_accept"
+            android:id="@+id/records_fragment"
+            android:icon="@drawable/ic_records"
             android:title="@string/menu_item_records" />
         <item
-            android:id="@+id/nav_fourd_fragment"
-            android:icon="@drawable/ic_accept"
+            android:id="@+id/calendar_fragment"
+            android:icon="@drawable/ic_events"
             android:title="@string/menu_item_calendar" />
     </group>
 </menu>

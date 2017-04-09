@@ -17,25 +17,28 @@ import java.util.List;
 
 public class ProceduresSpinnerAdapter extends BaseAdapter {
 
-    private List<Procedure> mProceduresList;
+    private List<Procedure> mProcedureList;
 
     public ProceduresSpinnerAdapter(List<Procedure> data) {
-        mProceduresList = data;
+        mProcedureList = data;
     }
 
     @Override
     public int getCount() {
-        return mProceduresList.size();
+        if (mProcedureList == null) {
+            return 0;
+        }
+        return mProcedureList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mProceduresList.get(position);
+        return mProcedureList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return mProceduresList.get(position).getmId();
+        return mProcedureList.get(position).getmId();
     }
 
     @Override
@@ -43,7 +46,7 @@ public class ProceduresSpinnerAdapter extends BaseAdapter {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.spinner_items, parent, false);
         ((TextView) view.findViewById(R.id.spinneItem))
-                .setText(mProceduresList.get(position).getmProcedureName());
+                .setText(mProcedureList.get(position).getmProcedureName());
         return view;
     }
 }

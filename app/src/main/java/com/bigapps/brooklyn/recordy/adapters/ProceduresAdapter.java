@@ -1,7 +1,6 @@
 package com.bigapps.brooklyn.recordy.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class ProceduresAdapter extends RecyclerView.Adapter<ProceduresAdapter.ProceduresViewHolder>{
 
-    private List<Procedure> mProceduresList;
+    private List<Procedure> mProcedureList;
 
     public class ProceduresViewHolder extends RecyclerView.ViewHolder {
         public TextView procedureName, duration, price;
@@ -32,20 +31,20 @@ public class ProceduresAdapter extends RecyclerView.Adapter<ProceduresAdapter.Pr
     }
 
     public ProceduresAdapter(List<Procedure> procedureList) {
-        this.mProceduresList = procedureList;
+        this.mProcedureList = procedureList;
     }
 
     @Override
     public ProceduresAdapter.ProceduresViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.rv_prcedure_item, parent, false);
+                .inflate(R.layout.item_procedure_adapter, parent, false);
         return new ProceduresViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ProceduresViewHolder holder, int position) {
-        Procedure procedure = mProceduresList.get(position);
+        Procedure procedure = mProcedureList.get(position);
         holder.procedureName.setText(procedure.getmProcedureName());
         //TODO
         //change to format.string
@@ -55,6 +54,9 @@ public class ProceduresAdapter extends RecyclerView.Adapter<ProceduresAdapter.Pr
 
     @Override
     public int getItemCount() {
-        return mProceduresList.size();
+        if (mProcedureList == null) {
+            return 0;
+        }
+        return mProcedureList.size();
     }
 }
